@@ -31,7 +31,6 @@ jspm_packages/
 /.next
 /.nuxt
 /out
-/public
 
 # Testing
 /coverage
