@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Pagination from '../PaginationComponent';
 import Loader from '../Loader';
-import  CaretDownSvg  from '../../assets/Svg/CaretDownSvg';
 import './Table.scss';
 
 type ITableComponent = {
@@ -76,7 +75,6 @@ const TableComponent: React.FC<ITableComponent> = ({
 	customBodyCss = '',
 	totalCount,
 	fetchMore,
-	onFilterChange,
 	loading,
 	isSearch,
 	handleOnClickTr,
@@ -84,21 +82,12 @@ const TableComponent: React.FC<ITableComponent> = ({
 	isPagination = true,
 	activePage,
 	perPageSize = 5,
-	handleSort,
 	sort,
 	selectedSorting,
 }) => {
 	const [perPageData, setPerPageData] = useState<number>(perPageSize);
 	const [totalPages, setTotalPages] = useState<number>(0);
-	const [pages, setPage] = useState<number>(1);
-	const [filter, setFilter] = useState<any>();
-	const [isSort, setIsSort] = useState<boolean>(sort ?? false);
-	const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC'>('DESC');
-	const [sortColumn, setSortColumn] = useState<string>('created_on');
-
-	useEffect(() => {
-		setIsSort(selectedSorting === 'lastModified');
-	}, [selectedSorting]);
+	const [pages, setPage] = useState<number>(1)
 
 	useEffect(() => {
 		if (totalCount && totalCount >= 0) {
@@ -146,40 +135,6 @@ const TableComponent: React.FC<ITableComponent> = ({
 		}
 	};
 
-	const onSort = (column: IColumn, order: 'ASC' | 'DESC') => (event: React.MouseEvent<HTMLElement>) => {
-		event.preventDefault();
-		event.stopPropagation();
-		setSortColumn(column.value);
-		setSortOrder(order);
-		setFilter({ ...filter, sortBy: column.value, orderBy: isSort ? 'ASC' : 'DESC' });
-		onFilterChange?.({ ...filter, sortBy: column.value, orderBy: isSort ? 'ASC' : 'DESC' });
-		handleSort?.(column.value, order);
-	};
-
-	const handleSortLocal = async (sorter: (a: unknown, b: unknown) => number, column: IColumn) => {
-		setIsSort(!isSort);
-		if (sorter) {
-			return data.sort(sorter);
-		} else {
-			return data.sort((a, b) => {
-				const nameA = a[column.value];
-				const nameB = b[column.value];
-				if (isSort) {
-					if (nameA > nameB) {
-						return 1;
-					} else {
-						return -1;
-					}
-				} else {
-					if (nameA < nameB) {
-						return 1;
-					} else {
-						return -1;
-					}
-				}
-			});
-		}
-	};
 
 	const recordsToDisplay = useMemo(() => {
 		if (isServerSidePagination) {
@@ -208,42 +163,6 @@ const TableComponent: React.FC<ITableComponent> = ({
 										<th className="py-3" key={index} style={{ width: column.width }}>
 											<div className="d-flex align-items-center text-nowrap justify-content-center">
 												{column.labelCell ? column.labelCell() : column.label}
-												{column.isSort && (
-													<div className="d-flex align-items-center flex-column sort-wrapper">
-														<div
-															onClick={
-																isServerSidePagination
-																	? onSort(column, 'ASC')
-																	: () => {
-																			if (column.sorter) {
-																				handleSortLocal(column.sorter, column);
-																			}
-																	  }
-															}
-															className={`d-flex cursor-pointer ${
-																column.value === sortColumn && sortOrder === 'ASC' ? '' : 'opacity-50'
-															}`}
-														>
-															<CaretDownSvg height={12} width={12} style={{ transform: 'rotate(180deg)' }} />
-														</div>
-														<div
-															onClick={
-																isServerSidePagination
-																	? onSort(column, 'DESC')
-																	: () => {
-																			if (column.sorter) {
-																				handleSortLocal(column.sorter, column);
-																			}
-																	  }
-															}
-															className={`d-flex cursor-pointer ${
-																column.value === sortColumn && sortOrder === 'DESC' ? '' : 'opacity-50'
-															}`}
-														>
-															<CaretDownSvg height={12} width={12} />
-														</div>
-													</div>
-												)}
 											</div>
 										</th>
 									);
