@@ -1,0 +1,42 @@
+@import 'src/styles/variables';
+
+.main-loading-wrapper {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 100%;
+  width: 100%;
+
+  .loader {
+    height: 100px;
+    width: 100px;
+    animation: rotation 2s linear infinite;
+  }
+
+  .loader-wrapper {
+    .loading-text {
+      color: #000;
+      font-family: $font-family;
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 900;
+      line-height: normal;
+    }
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

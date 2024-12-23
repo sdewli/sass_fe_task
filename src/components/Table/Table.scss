@@ -1,0 +1,242 @@
+@import 'src/styles/variables';
+
+.custom-table {
+  border-radius: 0 0 12px 12px;
+  background: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .table__content {
+    display: flex;
+    align-items: center;
+    margin: 28px 0;
+    flex-grow: 1;
+
+    .table__title {
+      color: var(--color-maastricht-blue);
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .table-title1 {
+      color: #809fb8;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: normal;
+    }
+
+    .table__input-title {
+      color: var(--color-pewter-blue);
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0;
+
+      h6 {
+        margin: unset;
+      }
+    }
+
+    .setting-button {
+      border-radius: 8px;
+      border: 1px solid var(--color-link-water);
+      background: var(--color-white);
+      padding: 10px;
+    }
+  }
+
+  .table {
+    flex-grow: 1; 
+    overflow-y: auto; 
+    thead {
+      tr {
+        th {
+          background-color: #e6e9ef;
+          color: $color-black;
+          font-size: 16px;
+          font-weight: 500;
+          padding: 21px;
+
+          &:first-child {
+            border-radius: 12px 0 0 0;
+            -moz-border-radius: 12px 0 0 0;
+            -webkit-border-radius: 12px 0 0 0;
+          }
+
+          &:last-child {
+            border-radius: 0 12px 0 0;
+            -moz-border-radius: 0 12px 0 0;
+            -webkit-border-radius: 0 12px 0 0;
+          }
+
+          .sort-wrapper {
+            padding-left: 5px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            div {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid #d9e1e7;
+
+        &:hover {
+          td {
+            background-color: $light-opacity-color;
+
+            button {
+              background: $second-primary;
+              color: #000;
+              border: 1px solid $second-primary;
+
+              svg {
+                path {
+                  fill: $color-white;
+                }
+              }
+            }
+          }
+        }
+
+        td {
+          padding: 21px;
+          color: #404040;
+        }
+      }
+    }
+
+    tfoot {
+      border-bottom: unset !important;
+    }
+  }
+
+  .no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $primary;
+  }
+
+  .pagination-main-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px; 
+
+    .dropdown-wrapper {
+      justify-content: flex-start;
+      margin-bottom: 16px;
+    }
+  }
+
+  .pagination {
+    justify-content: flex-end;
+  }
+}
+
+.primary-text {
+  color: $primary;
+}
+
+@media only screen and (max-width: 425px) and (min-width: 376px) {
+  .custom-table {
+    .table__content {
+      display: flex;
+      flex-direction: column;
+
+      .setting-button {
+        margin-top: 5px;
+      }
+    }
+
+    .dropdown-wrapper {
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .pagination {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      justify-content: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) and (min-width: 321px) {
+  .custom-table {
+    .table__content {
+      display: flex;
+      flex-direction: column;
+
+      .setting-button {
+        margin-top: 8px;
+      }
+    }
+
+    .pagination-main-wrapper {
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .dropdown-wrapper {
+        justify-content: center;
+        margin-top: 20px;
+      }
+    }
+
+    .pagination {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      justify-content: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .custom-table {
+    .table__content {
+      display: flex;
+      flex-direction: column;
+
+      .setting-button {
+        margin-top: 8px;
+      }
+    }
+
+    .pagination-main-wrapper {
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .dropdown-wrapper {
+        justify-content: center;
+        margin-top: 20px;
+      }
+    }
+
+    .pagination {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      justify-content: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 786px) and (min-width: 425px) {
+  .custom-table {
+    .pagination-main-wrapper {
+      flex-wrap: unset;
+
+      .dropdown-wrapper {
+        justify-content: center;
+        margin-top: 20px;
+      }
+    }
+  }
+}
